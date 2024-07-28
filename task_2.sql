@@ -28,7 +28,7 @@ CREATE TABLE Customers (
   phone_number VARCHAR(20)
 );
 
-CREATE TABLE orders (
+CREATE TABLE Orders (
   order_id INT PRIMARY KEY AUTO_INCREMENT,
   customer_id INT,
   order_date DATE,
