@@ -17,8 +17,9 @@ CREATE TABLE Customers (
   customer_id INT PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(50),
   last_name VARCHAR(50),
-  email VARCHAR(100),
-  address VARCHAR(255),
+  customer_name VARCHAR(215)
+  email VARCHAR(215),
+  address TEXT,
   city VARCHAR(50),
   state VARCHAR(50),   
 
@@ -27,7 +28,7 @@ CREATE TABLE Customers (
   phone_number VARCHAR(20)
 );
 
-CREATE TABLE Orders (
+CREATE TABLE orders (
   order_id INT PRIMARY KEY AUTO_INCREMENT,
   customer_id INT,
   order_date DATE,
@@ -39,7 +40,7 @@ CREATE TABLE Orders (
   FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 
-CREATE TABLE Order_details (
+CREATE TABLE order_details (
   order_id INT,
   book_id INT,
   quantity INT,   
