@@ -1,0 +1,3 @@
+USE `$1`;
+
+SHOW CREATE TABLE books;
