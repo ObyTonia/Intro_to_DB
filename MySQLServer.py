@@ -7,22 +7,32 @@ def create_database(host, user, password, database_name):
     Args:
         host (str): The hostname or IP address of the MySQL server.
         user (str): The username for connecting to the MySQL server.
-        password (str): The password for the user.
-        database_name (str): The name of the database to create.
+        password (str): The password for the specified user.
+        database_name (str): The name of the database to be created.
 
     Returns:
         None
+
+    Prints:
+        - Success message if the database is created successfully.
+        - Error message if there's an issue connecting or creating the database.
     """
 
     try:
-        connection = mysql.connector.connect(host=host, user=user, password=password)
+        # Establish connection to MySQL server without specifying a database
+        connection = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password
+        )
+
         cursor = connection.cursor()
 
-        # Create database with IF NOT EXISTS to handle existing databases
-        create_db_query = f"CREATE DATABASE IF NOT EXISTS {database_name}"
-        cursor.execute(create_db_query)
+        # Create database using CREATE DATABASE IF NOT EXISTS syntax
+        create_database_query = f"CREATE DATABASE IF NOT EXISTS {database_name}"
+        cursor.execute(create_database_query)
 
-        connection.commit()  # Commit changes to ensure database creation
+        connection.commit()  # Commit the database creation
 
         print(f"Database '{database_name}' created successfully!")
 
@@ -31,9 +41,9 @@ def create_database(host, user, password, database_name):
 
     finally:
         if connection:
-            connection.close()  # Always close the connection
+            connection.close()  # Close the connection regardless of success or failure
 
-# Replace with your actual MySQL server details
+# Replace with your actual MySQL server credentials
 host = "localhost"
 user = "your_username"
 password = "your_password"
