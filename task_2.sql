@@ -1,21 +1,16 @@
-USE alx_book_store;
-
-CREATE TABLE books (
-  -- Columns and their data types
-);
+ -- USE alx_book_store;
 
 CREATE TABLE authors (
-  -- Columns and their data types
+  author_id INT PRIMARY KEY AUTO_INCREMENT,
+  author_name VARCHAR(255)
 );
 
-CREATE TABLE customers (
-  -- Columns and their data types
-);
-
-CREATE TABLE orders (
-  -- Columns and their data types
-);
-
-CREATE TABLE order_details (
-  -- Columns and their data types
+CREATE TABLE books (
+  book_id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255),
+  author_id INT,
+  publisher VARCHAR(255),
+  publish_date DATE,
+  price DECIMAL(10,2),
+  FOREIGN KEY (author_id) REFERENCES authors(author_id)
 );
