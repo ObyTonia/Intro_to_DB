@@ -37,7 +37,7 @@ CREATE TABLE Orders (
   shipping_state VARCHAR(50),
   shipping_zip_code VARCHAR(20),
   shipping_country VARCHAR(50),
-  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+  FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
 CREATE TABLE order_details (
