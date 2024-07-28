@@ -1,52 +1,30 @@
 import mysql.connector
+from mysql.connector import Error
 
-def create_database(host, user, password, database_name):
-    """
-    Attempts to create a database with the given name on the MySQL server.
-
-    Args:
-        host (str): The hostname or IP address of the MySQL server.
-        user (str): The username for connecting to the MySQL server.
-        password (str): The password for the specified user.
-        database_name (str): The name of the database to be created.
-
-    Returns:
-        None
-
-    Prints:
-        - Success message if the database is created successfully.
-        - Error message if there's an issue connecting or creating the database.
-    """
-
+def create_database():
     try:
-        # Establish connection to MySQL server without specifying a database
+        # Connect to MySQL server
         connection = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password
+            host='localhost',  # Change this if your MySQL server is on a different host
+            user='your_username',  # Replace with your MySQL username
+            password='your_password'  # Replace with your MySQL password
         )
 
-        cursor = connection.cursor()
+        if connection.is_connected():
+            cursor = connection.cursor()
+            # SQL query to create a database
+            create_db_query = "CREATE DATABASE IF NOT EXISTS alx_book_store"
+            cursor.execute(create_db_query)
+            print("Database 'alx_book_store' created successfully!")
 
-        # Create database using CREATE DATABASE IF NOT EXISTS syntax
-        create_database_query = f"CREATE DATABASE IF NOT EXISTS {database_name}"
-        cursor.execute(create_database_query)
-
-        connection.commit()  # Commit the database creation
-
-        print(f"Database '{database_name}' created successfully!")
-
-    except mysql.connector.Error as err:
-        print(f"Error creating database: {err}")
+    except Error as e:
+        print(f"Error: {e}")
 
     finally:
-        if connection:
-            connection.close()  # Close the connection regardless of success or failure
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed")
 
-# Replace with your actual MySQL server credentials
-host = "localhost"
-user = "your_username"
-password = "your_password"
-database_name = "alx_book_store"
-
-create_database(host, user, password, database_name)
+if __name__ == "__main__":
+    create_database()
